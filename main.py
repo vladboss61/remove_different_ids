@@ -1,8 +1,12 @@
 import datetime
 
+class Removal:
+    def __init__(self, value: str, status: bool):
+        self.value = value
+        self.status = status
+
 def remove_ids(input_f):
     all_ids = list(map(str.strip, input_f.readlines()))
-    print(all_ids)
 
     input_ids = []
     removal_ids = []
@@ -19,7 +23,14 @@ def remove_ids(input_f):
         else:
             removal_ids.append(unique_id)
 
-    return list(set(input_ids).difference(set(removal_ids)))
+        input_removal_ids: list[Removal] = [Removal(x, False) for x in input_ids]
+
+        for input_id in input_removal_ids:
+            for removal_id in removal_ids:
+                if input_id.value == removal_id:
+                    input_id.status = True
+
+    return [y.value for y in input_removal_ids if not y.status]
 
 
 def write_ids(file_name: str, ids: list[str]):
