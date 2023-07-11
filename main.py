@@ -38,6 +38,7 @@ def write_ids(file_name: str, ids: list[str]):
         for u_id in ids:
             w_file.write(f"{u_id}\n")
             
+#No needed function but let's it be
 def update_ids(result_after_removal: list[str]) -> list[str]:
     result: list[str] = []
 
@@ -55,8 +56,8 @@ if __name__ == "__main__":
     with open("input_ids.txt") as input_f:
         result_after_removal = remove_ids(input_f)
 
-        updated_ids = update_ids(result_after_removal)
+        #updated_ids = update_ids(result_after_removal)
 
         time_now  = datetime.datetime.now().strftime('%m_%d_%Y_%H_%M_%S')
 
-        write_ids(f"result_{time_now}.txt", updated_ids)
+        write_ids(f"result_{time_now}.txt", result_after_removal)
