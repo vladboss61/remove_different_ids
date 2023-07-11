@@ -14,21 +14,22 @@ def remove_ids(input_f) -> list[str]:
     is_input_ids = True
 
     for unique_id in all_ids:
-        if unique_id == '-':
+        unique_id_strip = unique_id.strip()
+        if unique_id_strip == '-':
             is_input_ids = False
             continue
 
         if is_input_ids:
-            input_ids.append(unique_id)
+            input_ids.append(unique_id_strip)
         else:
-            removal_ids.append(unique_id)
+            removal_ids.append(unique_id_strip)
 
-        input_removal_ids: list[Removal] = [Removal(x, True) for x in input_ids]
+    input_removal_ids: list[Removal] = [Removal(x, True) for x in input_ids]
 
-        for input_id in input_removal_ids:
-            for removal_id in removal_ids:
-                if removal_id in input_id.value:
-                    input_id.is_fine_status = False
+    for input_id in input_removal_ids:
+        for removal_id in removal_ids:
+            if removal_id in input_id.value:
+                input_id.is_fine_status = False
 
     return [y.value for y in input_removal_ids if y.is_fine_status]
 
